@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -44,6 +44,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
+import { FormsModule } from '@angular/forms';
+import { UnauthorizedInterceptor } from './helpers/unauthorized.interceptor';
 
 @NgModule({
   imports: [
@@ -61,7 +63,10 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
     ChartsModule,
     IconModule,
     IconSetModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    CommonModule,
+    BrowserModule
   ],
   declarations: [
     AppComponent,
@@ -79,7 +84,12 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-       multi: true
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
     },
     IconSetService,
   ],
