@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { UsersComponent } from './users.component';
-import { UsersEditComponent } from './users-edit.component';
-import { UsersRoutingModule } from './users-routing.module';
+import { GroupsRoutingModule } from './groups-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { MatTableModule } from '@angular/material/table';
@@ -22,13 +20,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { UsersAddComponent } from './users-add.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatListModule } from '@angular/material/list';
+import { GroupsComponent } from './groups.component';
 
 @NgModule({
   imports: [
-    UsersRoutingModule,
+    GroupsRoutingModule,
     ChartsModule,
     BsDropdownModule,
     NgxPaginationModule,
@@ -47,10 +43,8 @@ import { MatListModule } from '@angular/material/list';
     MatGridListModule,
     CommonModule,
     FormsModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatListModule
+    MatProgressSpinnerModule
   ],
-  declarations: [ UsersComponent,UsersAddComponent,UsersEditComponent  ]
+  declarations: [ GroupsComponent ]
 })
-export class UsersModule { }
+export class GroupsModule { }

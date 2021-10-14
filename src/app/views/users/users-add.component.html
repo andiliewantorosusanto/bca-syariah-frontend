@@ -1,0 +1,64 @@
+<mat-card class="example-card">
+  <mat-card-content>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <mat-card-title>Users Add</mat-card-title>
+        </div>
+        <div class="col-2">
+          <button mat-flat-button  style="margin-top: 1px;" class="btn btn-danger btn-block" (click)="router.navigate(['/user'])">
+            <mat-icon>arrow_back</mat-icon>
+            Cancel
+          </button>
+        </div>
+        <div class="col-2">
+          <button mat-flat-button  style="margin-top: 1px;" class="btn btn-primary btn-block" (click)="insertUser()">
+            <mat-icon>add</mat-icon>
+            Submit
+          </button>
+        </div>
+      </div>
+      <div class="mt-5 row">
+        <div class="col-6">
+          <div class="mb-3">
+            <h3><strong>User Detail</strong></h3>
+          </div>
+          <div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-col-form-label" for="username">Username</label>
+                  <input type="text" class="form-control" [ngClass]="errors.username ? 'is-invalid' : ''" id="username" placeholder="Enter your username" [(ngModel)]="user.username">
+                  <div class="invalid-feedback" *ngIf="errors.username">
+                    {{errors.username}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-col-form-label" for="nama">Nama</label>
+                  <input type="text" class="form-control" [ngClass]="errors.nama ? 'is-invalid' : ''" id="nama" placeholder="Enter your name" [(ngModel)]="user.nama">
+                  <div class="invalid-feedback" *ngIf="errors.nama">
+                    {{errors.nama}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <h3><strong>Group</strong></h3>
+          </div>
+          <mat-selection-list #sGroups class="border pt-0" [(ngModel)]="selectedGroups">
+            <mat-list-option *ngFor="let group of groups" [value]="group.id">
+              {{group.group_name}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

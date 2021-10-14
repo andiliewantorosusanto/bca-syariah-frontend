@@ -83,8 +83,20 @@ export const routes: Routes = [
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       },
       {
-        path: 'users',
+        path: 'user',
         loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule)
+      },
+      {
+        path: 'menu',
+        loadChildren: () => import('./views/menus/menus.module').then(m => m.MenusModule)
+      },
+      {
+        path: 'group',
+        loadChildren: () => import('./views/groups/groups.module').then(m => m.GroupsModule)
+      },
+      {
+        path: 'textfile',
+        loadChildren: () => import('./views/textfile/textfile.module').then(m => m.TextfileModule)
       }
     ]
   },

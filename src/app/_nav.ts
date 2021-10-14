@@ -11,12 +11,22 @@ export const navItems: INavData[] = [
     name: 'User Management'
   },
   {
-    name: 'Users',
-    url: '/users/',
+    name: 'User',
+    url: '/user/',
     icon: 'icon-drop'
   },
   {
     title: true,
     name: 'Text Files'
-  }
+  },
+  {
+    name: 'Create Textfile',
+    url: '/textfile/create',
+    icon: 'icon-drop'
+  },
+  {
+    name: 'Upload Textfile',
+    url: '/textfile/upload',
+    icon: 'icon-drop'
+  },
 ];

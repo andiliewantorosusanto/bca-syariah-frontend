@@ -21,3 +21,10 @@ button:focus {
 .mat-form-field.fill-container textarea {
   height: calc(100% - 25px);
 }
+
+.mat-list-option:hover{
+  background-color: var(--secondary);
+}
+button:focus {
+  outline: none;
+}

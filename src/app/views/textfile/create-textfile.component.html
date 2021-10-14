@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        Create textfile
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-col-form-label">Autodebet Type</label>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="normal" name="autodebetType" class="custom-control-input" (change)="autoDebetTypeChange('normal')" checked>
+                <label class="custom-control-label" for="normal">Normal</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="future" name="autodebetType" class="custom-control-input" (change)="autoDebetTypeChange('future')">
+                <label class="custom-control-label" for="future">Future</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="overdue" name="autodebetType" class="custom-control-input" (change)="autoDebetTypeChange('overdue')">
+                <label class="custom-control-label" for="overdue">Overdue</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-col-form-label" for="username">Instalment Due Date To</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+                <input type="text"
+                placeholder="Datepicker"
+                class="form-control"
+                bsDatepicker mask="00-00-0000"
+                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                [disabled]="disableDatepicker"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="data!=''">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-col-form-label" for="data">Total Data</label>
+              <div class="input-group">
+                  <input type="text" class="form-control" [(ngModel)]="data.totalData" id="data" placeholder="Total Data" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="data!=''">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-col-form-label" for="amount">Total Autodebet Amount</label>
+              <div class="input-group">
+                  <input type="text" class="form-control" [(ngModel)]="data.totalAmount" id="amount" placeholder="Total Amount" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="textfileCreateStatus!=_TEXTFILE_NOT_CREATED">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-col-form-label" >Create Result :
+                <ng-container *ngIf="textfileCreateStatus==_TEXTFILE_ON_PROGRESS">
+                  On Progress
+                </ng-container>
+                <ng-container *ngIf="textfileCreateStatus==_TEXTFILE_SUCCESS">
+                  Success
+                </ng-container>
+                <ng-container *ngIf="textfileCreateStatus==_TEXTFILE_FAILED">
+                  Failed
+                </ng-container>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-sm btn-success" [disabled]="textfileCreateStatus==_TEXTFILE_ON_PROGRESS" (click)="searchTextfile()"><i class="fa fa-dot-circle-o"></i> Search</button>
+        <button type="reset" class="btn btn-sm btn-primary" [disabled]="data==''||textfileCreateStatus==_TEXTFILE_ON_PROGRESS" (click)="createTextfile()"><i class="fa fa-ban"></i> Create Textfile</button>
+      </div>
+    </div>
+  </div>
+</div>

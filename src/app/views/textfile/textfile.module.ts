@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { UsersComponent } from './users.component';
-import { UsersEditComponent } from './users-edit.component';
-import { UsersRoutingModule } from './users-routing.module';
+import { CreateTextfileComponent } from './create-textfile.component';
+import { UploadTextfileComponent } from './upload-textfile.component';
+import { TextfileRoutingModule } from './textfile-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { MatTableModule } from '@angular/material/table';
@@ -19,16 +19,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { UsersAddComponent } from './users-add.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   imports: [
-    UsersRoutingModule,
+    TextfileRoutingModule,
     ChartsModule,
     BsDropdownModule,
     NgxPaginationModule,
@@ -49,8 +50,12 @@ import { MatListModule } from '@angular/material/list';
     FormsModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatDatepickerModule,
+    BsDatepickerModule,
+    NgxMaskModule
   ],
-  declarations: [ UsersComponent,UsersAddComponent,UsersEditComponent  ]
+  declarations: [ CreateTextfileComponent,UploadTextfileComponent  ],
+  providers: [CurrencyPipe]
 })
-export class UsersModule { }
+export class TextfileModule { }

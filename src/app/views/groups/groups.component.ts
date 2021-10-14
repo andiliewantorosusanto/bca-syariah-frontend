@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'menu.component.html'
+  templateUrl: 'groups.component.html'
 })
-export class MenuComponent {
+export class GroupsComponent {
 
   constructor() { }
 

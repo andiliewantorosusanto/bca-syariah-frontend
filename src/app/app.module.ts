@@ -46,6 +46,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { FormsModule } from '@angular/forms';
 import { UnauthorizedInterceptor } from './helpers/unauthorized.interceptor';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -66,7 +68,9 @@ import { UnauthorizedInterceptor } from './helpers/unauthorized.interceptor';
     HttpClientModule,
     FormsModule,
     CommonModule,
-    BrowserModule
+    BrowserModule,
+    BsDatepickerModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
   declarations: [
     AppComponent,

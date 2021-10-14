@@ -29,8 +29,8 @@ export class LoginComponent {
         this.tokenStorageService.saveUser(res.data.user);
         this.router.navigate(['/dashboard']);
       },
-      res => {
-        this.errors = res.error.error;
+      err => {
+        this.errors = err.error.errors;
       });
   }
 }
