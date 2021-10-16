@@ -1,108 +1,111 @@
 <div class="row">
-  <div class="col-sm-12">
-    <div class="card">
-      <div class="card-header">
-        Create textfile
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label class="form-col-form-label">Search By</label>
-              <select class="form-control" [(ngModel)]="searchBy" name="searchBy">
-                <option value="batch_no">Batch No</option>
-                <option value="updated_at">Last Update</option>
-                <option value="updated_by">Last Update By</option>
-              </select>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Create textfile
             </div>
-          </div>
-          <div class="col-3">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="form-col-form-label" for="data">Text Search</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="data" placeholder="Total Data" name="textValue" [(ngModel)]="textValue" [disabled]="searchBy=='updated_at'">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-col-form-label">Search By</label>
+                            <select class="form-control" [(ngModel)]="searchBy" name="searchBy">
+                              <option value="batch_no">Batch No</option>
+                              <option value="updated_at">Last Update</option>
+                              <option value="updated_by">Last Update By</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label class="form-col-form-label" for="data">Text Search</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="data" placeholder="Total Data" name="textValue" [(ngModel)]="textValue" [disabled]="searchBy=='updated_at'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="form-col-form-label" for="username">Date Search</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <input type="text" [(ngModel)]="dateValue" name="dateValue" placeholder="Datepicker" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [disabled]="searchBy!='updated_at'">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="form-group">
-              <label class="form-col-form-label" for="username">Date Search</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-col-form-label">Sort By</label>
+                            <select class="form-control" [(ngModel)]="sortBy" name="sortBy">
+                              <option value="batch_no">Batch No</option>
+                              <option value="updated_at">Last Update</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <input type="text"
-                [(ngModel)]="dateValue"
-                placeholder="Datepicker"
-                class="form-control"
-                bsDatepicker mask="00-00-0000"
-                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
-                [disabled]="searchBy!='updated_at'"
-                >
-              </div>
+                <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <button class="btn btn-primary" (click)="browse()">
+                          Browse
+                        </button>
+                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #file [hidden]=true (change)="upload(file.files)">
+                        <button class="btn btn-primary" (click)="file.click()" [disabled]="statusFileUpload==1">
+                          Upload
+                        </button>
+                        <label class="form-col-form-label" *ngIf="statusFileUpload!=0">
+                          Upload Textfile Result :
+                          <ng-container *ngIf="statusFileUpload==1">
+                            On Progress
+                          </ng-container>
+                          <ng-container *ngIf="statusFileUpload==2">
+                            Failed
+                          </ng-container>
+                          <ng-container *ngIf="statusFileUpload==3">
+                            Success
+                          </ng-container>
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="data.length>=1">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>BATCH NO.</th>
+                                    <th>TOTAL DATA</th>
+                                    <th>LAST UPDATE</th>
+                                    <th>LAST UPDATE BY</th>
+                                    <th>DETAIL</th>
+                                    <th>TEXTFILE RESULT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of data">
+                                    <td>{{item.batch_no}}</td>
+                                    <td>{{item.textfileresults_count}}</td>
+                                    <td>{{item.updated_at | date:'dd-MM-yyyy'}}</td>
+                                    <td>{{item.updatedby.nama}}</td>
+                                    <td>
+                                        <button type="button" style="border: none;" class="text-primary" (click)="router.navigate(['/textfile/upload/view/'+item.batch_no]);" ><i class="fa fa-eye"></i>&nbsp;View</button> /
+                                        <button type="button" style="border: none;" class="text-primary"><i class="fa fa-download"></i>&nbsp;Download</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" style="border: none;" class="text-primary"><i class="fa fa-download"></i>&nbsp;Download</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label class="form-col-form-label">Sort By</label>
-              <select class="form-control" [(ngModel)]="sortBy" name="sortBy" >
-                <option value="batch_no">Batch No</option>
-                <option value="updated_at">Last Update</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label class="form-col-form-label" >Upload Textfile Result :
-                <button class="btn btn-primary" (click)="browse()">
-                  Browse
-                </button>
-                <button class="btn btn-primary">
-                  Upload
-                </button>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>BATCH NO.</th>
-                  <th>TOTAL DATA</th>
-                  <th>LAST UPDATE</th>
-                  <th>LAST UPDATE BY</th>
-                  <th>DETAIL</th>
-                  <th>TEXTFILE RESULT</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr *ngFor="let item of data"> -->
-                <tr>
-                  <td>001</td>
-                  <td>3</td>
-                  <td>xxx</td>
-                  <td>tehe</td>
-                  <td>
-                    <button type="button" style="border: none;" class="text-primary"><i class="fa fa-eye"></i>&nbsp;View</button> /
-                    <button type="button" style="border: none;" class="text-primary"><i class="fa fa-download"></i>&nbsp;Download</button>
-                  </td>
-                  <td>
-                    <button type="button" style="border: none;" class="text-primary"><i class="fa fa-download"></i>&nbsp;Download</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

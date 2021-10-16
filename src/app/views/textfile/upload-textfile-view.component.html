@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Create textfile
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label class="form-col-form-label" for="data">Batch No</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Batch No" name="batchNo" [(ngModel)]="batchNo" [disabled]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="form-col-form-label" for="data">Total Data</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Total Data" name="totalData" [(ngModel)]="totalData" [disabled]="true">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="transactionList.length>=1">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>NOMOR REKENING</th>
+                                    <th>JENIS MUTASI</th>
+                                    <th>TRX CODE</th>
+                                    <th>AMOUNT</th>
+                                    <th>SIGN</th>
+                                    <th>DESKRIPSI</th>
+                                    <th>STATUS VALIDASI</th>
+                                    <th>KET VALIDASI</th>
+                                    <th>STATUS PROSES</th>
+                                    <th>KET PROSES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of transactionList">
+                                    <td>{{item.nomor_rekening}}</td>
+                                    <td>{{item.jenis_mutasi}}</td>
+                                    <td>{{item.trx_code}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.sign}}</td>
+                                    <td>{{item.deskripsi}}</td>
+                                    <td>{{item.status_validasi}}</td>
+                                    <td>{{item.ket_validasi}}</td>
+                                    <td>{{item.status_proses}}</td>
+                                    <td>{{item.ket_proses}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+              <button type="reset" class="btn btn-sm btn-danger" (click)="router.navigate(['/textfile/upload'])"><i class="fa fa-ban"></i>&nbsp;Back</button>
+            </div>
+        </div>
+    </div>
+</div>

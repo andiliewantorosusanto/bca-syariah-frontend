@@ -27,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { UploadTextfileViewComponent } from './upload-textfile-view.component';
 @NgModule({
   imports: [
     TextfileRoutingModule,
@@ -55,7 +56,7 @@ import { NgxMaskModule } from 'ngx-mask';
     BsDatepickerModule,
     NgxMaskModule
   ],
-  declarations: [ CreateTextfileComponent,UploadTextfileComponent  ],
+  declarations: [ CreateTextfileComponent,UploadTextfileComponent,UploadTextfileViewComponent  ],
   providers: [CurrencyPipe]
 })
 export class TextfileModule { }
