@@ -39,7 +39,7 @@ export class UsersEditComponent implements AfterViewInit {
     forkJoin(
       [groupRequest, userRequest, groupUserRequest]
     ).subscribe(data => {
-      this.groups = data[0].data.data;
+      this.groups = data[0].data.groups;
       this.user = data[1].data;
 
       data[2].data.forEach(group => {

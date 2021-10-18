@@ -1,0 +1,53 @@
+<mat-card class="example-card">
+  <mat-card-content>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <mat-card-title>Group Add</mat-card-title>
+        </div>
+        <div class="col-2">
+          <button mat-flat-button  style="margin-top: 1px;" class="btn btn-danger btn-block" (click)="router.navigate(['/group'])">
+            <mat-icon>arrow_back</mat-icon>
+            Cancel
+          </button>
+        </div>
+        <div class="col-2">
+          <button mat-flat-button  style="margin-top: 1px;" class="btn btn-primary btn-block" (click)="insertGroup()">
+            <mat-icon>add</mat-icon>
+            Submit
+          </button>
+        </div>
+      </div>
+      <div class="mt-5 row">
+        <div class="col-6">
+          <div class="mb-3">
+            <h3><strong>Group Detail</strong></h3>
+          </div>
+          <div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-col-form-label" for="group_name">Group Name</label>
+                  <input type="text" class="form-control" [ngClass]="errors.group_name ? 'is-invalid' : ''" id="group_name" placeholder="Enter your group name" [(ngModel)]="group.group_name">
+                  <div class="invalid-feedback" *ngIf="errors.group_name">
+                    {{errors.group_name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <h3><strong>Menu</strong></h3>
+          </div>
+          <mat-selection-list #sMenus class="border pt-0" [(ngModel)]="selectedMenus">
+            <mat-list-option *ngFor="let menu of menus" [value]="menu.id">
+              {{menu.menu_name}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

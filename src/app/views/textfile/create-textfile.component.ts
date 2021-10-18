@@ -19,11 +19,15 @@ export class CreateTextfileComponent implements AfterViewInit {
   _TEXTFILE_FAILED: number = 2;
   _TEXTFILE_SUCCESS: number = 3;
 
-  date: string = "04-10-2021";
+  date: string = "";
   disableDatepicker : boolean = true;
   data: any = "";
   autoDebetType : string = "normal";
   textfileCreateStatus: number = this._TEXTFILE_NOT_CREATED;
+
+  errors: any = {
+    'date' : ''
+  };
 
   constructor(
     public router : Router,
@@ -49,12 +53,12 @@ export class CreateTextfileComponent implements AfterViewInit {
 
   searchTextfile() {
     if(this.autoDebetType == "future") {
-      this.textfileService.getAutoDebetFuture('2021-12-30').subscribe(
+      this.textfileService.getAutoDebetFuture(this.date).subscribe(
         res => {
           this.setData(res.data);
         },
         err => {
-          console.log(err);
+          this.errors = err.error.errors;
         }
       );
     } else if (this.autoDebetType == "normal") {
@@ -87,6 +91,7 @@ export class CreateTextfileComponent implements AfterViewInit {
           this.downloadTextfile(res);
         },
         err => {
+          this.errors = err.error.errors;
           this.textfileCreateStatus = this._TEXTFILE_FAILED
         }
       );

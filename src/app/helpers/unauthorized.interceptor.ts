@@ -9,12 +9,14 @@ import {
 import { NEVER, Observable, throwError, } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
 
   constructor(
-    private router : Router
+    private router : Router,
+    private readonly notifier : NotifierService
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

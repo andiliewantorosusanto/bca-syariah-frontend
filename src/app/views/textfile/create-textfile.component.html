@@ -31,12 +31,16 @@
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
                 <input type="text"
+                [ngClass]="errors.date ? 'is-invalid' : ''"
                 placeholder="Datepicker"
                 class="form-control"
-                bsDatepicker mask="00-00-0000"
-                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                [(ngModel)]="date"
+                bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                 [disabled]="disableDatepicker"
                 >
+                <div class="invalid-feedback" *ngIf="errors.date">
+                  {{errors.date}}
+                </div>
               </div>
             </div>
           </div>

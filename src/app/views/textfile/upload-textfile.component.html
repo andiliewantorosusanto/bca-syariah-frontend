@@ -52,13 +52,6 @@
                 <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-                        <button class="btn btn-primary" (click)="browse()">
-                          Browse
-                        </button>
-                        <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #file [hidden]=true (change)="upload(file.files)">
-                        <button class="btn btn-primary" (click)="file.click()" [disabled]="statusFileUpload==1">
-                          Upload
-                        </button>
                         <label class="form-col-form-label" *ngIf="statusFileUpload!=0">
                           Upload Textfile Result :
                           <ng-container *ngIf="statusFileUpload==1">
@@ -95,16 +88,25 @@
                                     <td>{{item.updatedby.nama}}</td>
                                     <td>
                                         <button type="button" style="border: none;" class="text-primary" (click)="router.navigate(['/textfile/upload/view/'+item.batch_no]);" ><i class="fa fa-eye"></i>&nbsp;View</button> /
-                                        <button type="button" style="border: none;" class="text-primary"><i class="fa fa-download"></i>&nbsp;Download</button>
+                                        <button type="button" style="border: none;" class="text-primary" (click)="downloadExcel(item.batch_no)"><i class="fa fa-download"></i>&nbsp;Download</button>
                                     </td>
                                     <td>
-                                        <button type="button" style="border: none;" class="text-primary"><i class="fa fa-download"></i>&nbsp;Download</button>
+                                        <button type="button" style="border: none;" class="text-primary" (click)="downloadTextfile(item.batch_no)"><i class="fa fa-download"></i>&nbsp;Download</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer">
+              <button type="reset" class="btn btn-sm btn-primary" (click)="browse()">
+                <i class="fa fa-ban"></i>&nbsp;Browse
+              </button>
+              <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #file [hidden]=true (change)="upload(file.files)">
+              <button class="btn btn-sm btn-primary" (click)="file.click()" [disabled]="statusFileUpload==1">
+                <i class="fa fa-ban"></i>&nbsp; Upload
+              </button>
             </div>
         </div>
     </div>

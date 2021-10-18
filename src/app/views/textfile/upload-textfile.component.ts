@@ -4,6 +4,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TextfileService } from '../../services/textfile.service'
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: 'upload-textfile.component.html'
@@ -72,6 +73,48 @@ export class UploadTextfileComponent implements AfterViewInit {
         }
       )
   }
+
+  downloadTextfile(batchNo) {
+    this.textfileService.downloadUploadTextfile(batchNo).subscribe(
+      (response: any) =>{
+          let fileName = response.headers.get('Content-Disposition').split('; filename=')[1];
+          let body = response.body;
+          let dataType = body.type;
+          let binaryData = [];
+          binaryData.push(body);
+          let downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+          downloadLink.setAttribute('download', fileName);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+      },
+      err => {
+        Swal.fire(
+          `Export Failed!`,
+          `Textfile already export`,
+          'error'
+        )
+      }
+    )
+  }
+
+  downloadExcel(batchNo) {
+    this.textfileService.downloadUploadExcel(batchNo).subscribe(
+      (response: any) =>{
+          let fileName = response.headers.get('Content-Disposition').split('; filename=')[1];
+          let body = response.body;
+          let dataType = body.type;
+          let binaryData = [];
+          binaryData.push(body);
+          let downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+          downloadLink.setAttribute('download', fileName);
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+      }
+    )
+  }
+
   ngAfterViewInit() {
 
   }

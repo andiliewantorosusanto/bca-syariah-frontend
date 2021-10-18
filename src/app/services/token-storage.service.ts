@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
+const MENU_KEY = 'auth-menu';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,30 @@ export class TokenStorageService {
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  public saveMenu(menu: any): void {
+    window.sessionStorage.removeItem(MENU_KEY);
+    window.sessionStorage.setItem(MENU_KEY, JSON.stringify(menu));
+  }
+
+  public getMenu(): any {
+    const menu = window.sessionStorage.getItem(MENU_KEY);
+    if (menu) {
+      let availableMenu = [];
+
+      JSON.parse(menu).forEach(element => {
+        availableMenu.push({
+          name: element.menu_name,
+          url: element.menu_link,
+          icon: element.menu_icon
+        })
+      });
+
+      return availableMenu;
+    }
+
+    return null;
   }
 
   public getUser(): any {

@@ -21,6 +21,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GroupsComponent } from './groups.component';
+import { GroupsEditComponent } from './groups-edit.component';
+import { GroupsAddComponent } from './groups-add.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -43,8 +46,9 @@ import { GroupsComponent } from './groups.component';
     MatGridListModule,
     CommonModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule
   ],
-  declarations: [ GroupsComponent ]
+  declarations: [ GroupsComponent,GroupsEditComponent,GroupsAddComponent ]
 })
 export class GroupsModule { }

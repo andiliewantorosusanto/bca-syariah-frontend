@@ -48,6 +48,7 @@ import { FormsModule } from '@angular/forms';
 import { UnauthorizedInterceptor } from './helpers/unauthorized.interceptor';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxMaskModule } from 'ngx-mask';
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { NgxMaskModule } from 'ngx-mask';
     CommonModule,
     BrowserModule,
     BsDatepickerModule.forRoot(),
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NotifierModule
   ],
   declarations: [
     AppComponent,

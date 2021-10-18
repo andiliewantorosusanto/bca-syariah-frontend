@@ -1,25 +1,26 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { User } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
 import Swal from "sweetalert2";
 import { Router } from '@angular/router';
 import { GroupService } from '../../services/group.service';
 import { Group } from '../../models/group.model';
+import { MenuService } from '../../services/menu.service';
+import { Menu } from '../../models/menu.model';
 
 @Component({
-  templateUrl: 'users-add.component.html'
+  templateUrl: 'groups-add.component.html'
 })
-export class UsersAddComponent implements AfterViewInit {
-  user: User = new User();
-  groups: Group[] = [];
-  selectedGroups: string[] = [];
+
+export class GroupsAddComponent implements AfterViewInit {
+  menus: Menu[] = [];
+  group: Group = new Group();
+  selectedMenus: string[] = [];
+
   errors: any = {
-    'username' : '',
-    'nama' : ''
+    'group_name' : ''
   };
 
   constructor(
-    private userService : UserService,
+    private menuService : MenuService,
     public router : Router,
     private groupService : GroupService
   ) {
@@ -27,9 +28,9 @@ export class UsersAddComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.groupService.get().subscribe(
+    this.menuService.get().subscribe(
       res => {
-        this.groups = res.data.groups;
+        this.menus = res.data.menus;
       },
       err => {
         console.log(err);
@@ -37,19 +38,19 @@ export class UsersAddComponent implements AfterViewInit {
     )
   }
 
-  insertUser() {
-    this.user.sts = true;
-    this.userService.create(this.user).subscribe(
+  insertGroup() {
+    this.group.sts = true;
+    this.groupService.create(this.group).subscribe(
       res => {
-        let nama = res.data.nama;
-        this.userService.updateGroups(res.data.id,this.selectedGroups).subscribe(
+        let nama = res.data.group_name;
+        this.groupService.updateMenu(res.data.id,this.selectedMenus).subscribe(
           res => {
             Swal.fire(
               `Action Success!`,
-              `User ${nama} has been created.`,
+              `Group ${nama} has been created.`,
               'success'
             )
-            this.router.navigate(['/user']);
+            this.router.navigate(['/group']);
           },
           err => {
             this.errors = err.error.errors;

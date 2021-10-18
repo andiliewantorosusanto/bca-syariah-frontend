@@ -2,8 +2,6 @@ import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
-import { SortDirection } from '@angular/material/sort';
-import { Group } from '../models/group.model';
 
 const baseUrl = environment.apiUrl+'/textfile';
 
@@ -17,15 +15,15 @@ export class TextfileService {
   }
 
   getAutoDebetNormal(): Observable<any> {
-    return this.http.get(`${baseUrl}/autodebetnormal`);
+    return this.http.get(`${baseUrl}/create/autodebetnormal`);
   }
 
   getAutoDebetKonsumenBermasalah(): Observable<any> {
-    return this.http.get(`${baseUrl}/autodebetkonsumenbermasalah`);
+    return this.http.get(`${baseUrl}/create/autodebetkonsumenbermasalah`);
   }
 
   getAutoDebetFuture(date: string): Observable<any> {
-    return this.http.get(`${baseUrl}/autodebetfuture`, {
+    return this.http.get(`${baseUrl}/create/autodebetfuture`, {
       params: {
         date : date,
       }
@@ -33,21 +31,21 @@ export class TextfileService {
   }
 
   generateAutoDebetNormal(): Observable<any> {
-    return this.http.post(`${baseUrl}/autodebetnormal/generate`,{});
+    return this.http.post(`${baseUrl}/create/autodebetnormal/generate`,{});
   }
 
   generateAutoDebetKonsumenBermasalah(): Observable<any> {
-    return this.http.post(`${baseUrl}/autodebetkonsumenbermasalah/generate`,{});
+    return this.http.post(`${baseUrl}/create/autodebetkonsumenbermasalah/generate`,{});
   }
 
   generateAutoDebetFuture(date: string): Observable<any> {
-    return this.http.post(`${baseUrl}/autodebetfuture/generate`, {
+    return this.http.post(`${baseUrl}/create/autodebetfuture/generate`, {
       date : date
     });
   }
 
   downloadTextfile(batchNo: string): Observable<any> {
-    return this.http.get(`${baseUrl}/downloadTextfile`,{
+    return this.http.get(`${baseUrl}/create/downloadTextfile`,{
       params: {
         batch_no : batchNo
       },
@@ -86,6 +84,26 @@ export class TextfileService {
       params: {
         batch_no : batchNo
       }
+    })
+  }
+
+  downloadUploadTextfile(batchNo: string): Observable<any> {
+    return this.http.get(`${baseUrl}/upload/downloadTextfile`,{
+      params: {
+        batch_no : batchNo
+      },
+      responseType: 'blob' as 'json',
+      observe: 'response'
+    })
+  }
+
+  downloadUploadExcel(batchNo: string): Observable<any> {
+    return this.http.get(`${baseUrl}/upload/downloadExcel`,{
+      params: {
+        batch_no : batchNo
+      },
+      responseType: 'blob' as 'json',
+      observe: 'response'
     })
   }
 }

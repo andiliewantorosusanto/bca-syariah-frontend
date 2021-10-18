@@ -3,15 +3,15 @@ import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
-import { Group } from '../models/group.model';
+import { Menu } from '../models/menu.model';
 
-const baseUrl = environment.apiUrl+'/group';
+const baseUrl = environment.apiUrl+'/menu';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class GroupService {
+export class MenuService {
   constructor(private http: HttpClient) {
 
   }
@@ -32,25 +32,15 @@ export class GroupService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  create(group : Group): Observable<any> {
-    return this.http.post(`${baseUrl}`,group);
+  create(menu : Menu): Observable<any> {
+    return this.http.post(`${baseUrl}`,menu);
   }
 
-  update(group: Group): Observable<any> {
-    return this.http.post(`${baseUrl}/${group.id}`,group);
+  update(menu: Menu): Observable<any> {
+    return this.http.post(`${baseUrl}/${menu.id}`,menu);
   }
 
   toggleStatus(id: string): Observable<any> {
     return this.http.post(`${baseUrl}/${id}/status`, {});
-  }
-
-  updateMenu(id: String,menu_ids: string[]) : Observable<any> {
-    return this.http.post(`${baseUrl}/${id}/updateMenu`,{
-      menu_ids : menu_ids
-    });
-  }
-
-  getMenu(id: String): Observable<any> {
-    return this.http.get(`${baseUrl}/${id}/menu`);
   }
 }

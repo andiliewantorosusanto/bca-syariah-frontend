@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { AuthService } from '../../services/auth.service';
 import { TokenStorageService } from '../../services/token-storage.service';
 
@@ -18,8 +19,13 @@ export class LoginComponent {
   constructor(
     private authService : AuthService,
     private tokenStorageService : TokenStorageService,
-    private router : Router
+    private router : Router,
+    private readonly notifier: NotifierService
   ) {}
+
+  ngAfterViewInit() {
+    this.notifier.notify('success', 'You are awesome! I mean it!');
+  }
 
   login() {
     this.authService.login(this.username,this.password)
@@ -27,6 +33,7 @@ export class LoginComponent {
       res => {
         this.tokenStorageService.saveToken(res.data.token);
         this.tokenStorageService.saveUser(res.data.user);
+        this.tokenStorageService.saveMenu(res.data.menu);
         this.router.navigate(['/dashboard']);
       },
       err => {
