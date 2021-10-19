@@ -19,6 +19,7 @@ export class UsersEditComponent implements AfterViewInit {
     'username' : '',
     'nama' : ''
   };
+  buttonEditDisabled: boolean = false;
 
   @ViewChild(MatSelectionList) sGroups : MatSelectionList;
 
@@ -49,6 +50,7 @@ export class UsersEditComponent implements AfterViewInit {
   }
 
   updateUser() {
+    this.buttonEditDisabled = true;
     this.userService.update(this.user).subscribe(
       res => {
         let nama = res.data.nama;
@@ -62,11 +64,13 @@ export class UsersEditComponent implements AfterViewInit {
             this.router.navigate(['/user']);
           },
           err => {
+            this.buttonEditDisabled = false;
             this.errors = err.error.errors;
           }
         )
       },
       err => {
+        this.buttonEditDisabled = false;
         this.errors = err.error.errors;
       }
     )

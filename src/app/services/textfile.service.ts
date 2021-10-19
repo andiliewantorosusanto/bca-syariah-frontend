@@ -106,4 +106,21 @@ export class TextfileService {
       observe: 'response'
     })
   }
+
+  importAutoDebetNormal(): Observable<any> {
+    return this.http.get(`${baseUrl}/create/autodebetnormal/import`);
+  }
+
+  importAutoDebetKonsumenBermasalah(): Observable<any> {
+    return this.http.get(`${baseUrl}/create/autodebetkonsumenbermasalah/import`);
+  }
+
+  importAutoDebetFuture(date: string): Observable<any> {
+    return this.http.get(`${baseUrl}/create/autodebetfuture/import`, {
+      params: {
+        date : date,
+      }
+    });
+  }
+
 }

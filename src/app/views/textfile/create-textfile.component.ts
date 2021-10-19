@@ -4,9 +4,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TextfileService } from '../../services/textfile.service'
 import { DatePipe } from '@angular/common';
-
-
-
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: 'create-textfile.component.html'
@@ -19,12 +17,14 @@ export class CreateTextfileComponent implements AfterViewInit {
   _TEXTFILE_FAILED: number = 2;
   _TEXTFILE_SUCCESS: number = 3;
 
-  date: string = "";
+  date: Date = new Date();
   disableDatepicker : boolean = true;
   data: any = "";
   autoDebetType : string = "normal";
   textfileCreateStatus: number = this._TEXTFILE_NOT_CREATED;
 
+  btnSearchLoading: boolean = false;
+  btnImportLoading: boolean = false;
   errors: any = {
     'date' : ''
   };
@@ -51,31 +51,112 @@ export class CreateTextfileComponent implements AfterViewInit {
     this.data.totalAmount = this.currencyPipe.transform(this.data.totalAmount, 'Rp. ');
   }
 
-  searchTextfile() {
+  importAutoDebet() {
+    this.btnImportLoading = true;
     if(this.autoDebetType == "future") {
-      this.textfileService.getAutoDebetFuture(this.date).subscribe(
+      this.textfileService.importAutoDebetFuture(this.date.toISOString().split('T')[0]).subscribe(
         res => {
+          if(res.data.data) {
+            Swal.fire(
+              `Import Success`,
+              res.data.message,
+              'success'
+            );
+          } else {
+            Swal.fire(
+              `Import Failed!`,
+              res.data.message,
+              'error'
+            );
+          }
+          this.btnImportLoading = false;
+        },
+        err => {
+          this.btnImportLoading = false;
+          this.errors = err.error.errors;
+        }
+      );
+    } else if (this.autoDebetType == "normal") {
+      this.textfileService.importAutoDebetNormal().subscribe(
+        res => {
+          if(res.data.data) {
+            Swal.fire(
+              `Import Success`,
+              res.data.message,
+              'success'
+            );
+          } else {
+            Swal.fire(
+              `Import Failed!`,
+              res.data.message,
+              'error'
+            );
+          }
+          this.btnImportLoading = false;
+        },
+        err => {
+          this.btnImportLoading = false;
+          console.log(err);
+        }
+      );
+    } else if(this.autoDebetType == "overdue") {
+      this.textfileService.importAutoDebetKonsumenBermasalah().subscribe(
+        res => {
+          if(res.data.data) {
+            Swal.fire(
+              `Import Success`,
+              res.data.message,
+              'success'
+            );
+          } else {
+            Swal.fire(
+              `Import Failed!`,
+              res.data.message,
+              'error'
+            );
+          }
+          this.btnImportLoading = false;
+        },
+        err => {
+          this.btnImportLoading = false;
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  searchTextfile() {
+    this.btnSearchLoading = true;
+    if(this.autoDebetType == "future") {
+      this.textfileService.getAutoDebetFuture(this.date.toISOString().split('T')[0]).subscribe(
+        res => {
+          this.btnSearchLoading = false;
           this.setData(res.data);
         },
         err => {
+          this.btnSearchLoading = false;
           this.errors = err.error.errors;
         }
       );
     } else if (this.autoDebetType == "normal") {
       this.textfileService.getAutoDebetNormal().subscribe(
         res => {
+          this.btnSearchLoading = false;
           this.setData(res.data);
         },
         err => {
+          this.btnSearchLoading = false;
           console.log(err);
         }
       );
     } else if(this.autoDebetType == "overdue") {
       this.textfileService.getAutoDebetKonsumenBermasalah().subscribe(
         res => {
+          this.btnSearchLoading = false;
           this.setData(res.data);
         },
         err => {
+          this.btnSearchLoading = false;
           console.log(err);
         }
       );
@@ -85,7 +166,7 @@ export class CreateTextfileComponent implements AfterViewInit {
   createTextfile() {
     this.textfileCreateStatus = this._TEXTFILE_ON_PROGRESS;
     if(this.autoDebetType == "future") {
-      this.textfileService.generateAutoDebetFuture(this.date.split("-").reverse().join("-")).subscribe(
+      this.textfileService.generateAutoDebetFuture(this.date.toISOString().split('T')[0]).subscribe(
         res => {
           this.textfileCreateStatus = this._TEXTFILE_SUCCESS;
           this.downloadTextfile(res);

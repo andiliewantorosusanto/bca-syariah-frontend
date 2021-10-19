@@ -12,7 +12,7 @@
           </button>
         </div>
         <div class="col-2">
-          <button mat-flat-button  style="margin-top: 1px;" class="btn btn-primary btn-block" (click)="insertGroup()">
+          <button mat-flat-button  style="margin-top: 1px;" class="btn btn-primary btn-block" (click)="insertGroup()" [disabled]="btnAddDisabled">
             <mat-icon>add</mat-icon>
             Submit
           </button>

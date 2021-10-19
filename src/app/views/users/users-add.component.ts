@@ -17,6 +17,7 @@ export class UsersAddComponent implements AfterViewInit {
     'username' : '',
     'nama' : ''
   };
+  buttonAddDisabled: boolean = false;
 
   constructor(
     private userService : UserService,
@@ -38,6 +39,7 @@ export class UsersAddComponent implements AfterViewInit {
   }
 
   insertUser() {
+    this.buttonAddDisabled = true;
     this.user.sts = true;
     this.userService.create(this.user).subscribe(
       res => {
@@ -52,11 +54,13 @@ export class UsersAddComponent implements AfterViewInit {
             this.router.navigate(['/user']);
           },
           err => {
+            this.buttonAddDisabled = false;
             this.errors = err.error.errors;
           }
         )
       },
       err => {
+        this.buttonAddDisabled = false;
         this.errors = err.error.errors;
       }
     )

@@ -14,10 +14,10 @@ export class GroupsAddComponent implements AfterViewInit {
   menus: Menu[] = [];
   group: Group = new Group();
   selectedMenus: string[] = [];
-
   errors: any = {
     'group_name' : ''
   };
+  btnAddDisabled: boolean = false;
 
   constructor(
     private menuService : MenuService,
@@ -39,6 +39,7 @@ export class GroupsAddComponent implements AfterViewInit {
   }
 
   insertGroup() {
+    this.btnAddDisabled = true;
     this.group.sts = true;
     this.groupService.create(this.group).subscribe(
       res => {
@@ -58,6 +59,7 @@ export class GroupsAddComponent implements AfterViewInit {
         )
       },
       err => {
+        this.btnAddDisabled = false;
         this.errors = err.error.errors;
       }
     )

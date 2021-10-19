@@ -18,11 +18,11 @@ export class UploadTextfileComponent implements AfterViewInit {
 
   data: any[] = [];
   textValue: string = "";
-  dateValue: string = "";
+  dateValue: Date = new Date();
   searchBy: string = "batch_no";
   sortBy: string = "batch_no";
   statusFileUpload : number = 0;
-
+  btnSearchLoading: boolean = false;
   @ViewChild('file') file:ElementRef;
 
   constructor(
@@ -34,13 +34,14 @@ export class UploadTextfileComponent implements AfterViewInit {
   }
 
   browse() {
-    let searchValue = (this.searchBy == "update_at") ? this.dateValue : this.textValue;
-
+    let searchValue = (this.searchBy == "update_at") ? this.dateValue.toISOString().split('T')[0] : this.textValue;
+    this.btnSearchLoading = true;
     this.textfileService.browseUpload(this.searchBy,searchValue,this.sortBy).subscribe(
       res => {
         this.data = res.data;
+        this.btnSearchLoading = false;
       }, err => {
-
+        this.btnSearchLoading = false;
       }
     );
   }

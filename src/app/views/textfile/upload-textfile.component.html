@@ -100,12 +100,14 @@
                 </div>
             </div>
             <div class="card-footer">
-              <button type="reset" class="btn btn-sm btn-primary" (click)="browse()">
-                <i class="fa fa-ban"></i>&nbsp;Browse
+              <button type="reset" class="btn btn-sm btn-primary" (click)="browse()" [disabled]="btnSearchLoading">
+                <i class="fa fa-spinner fa-spin" *ngIf="btnSearchLoading"></i>
+                <i class="fa fa-search" *ngIf="!btnSearchLoading"></i>&nbsp;Browse
               </button>
               <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" #file [hidden]=true (change)="upload(file.files)">
-              <button class="btn btn-sm btn-primary" (click)="file.click()" [disabled]="statusFileUpload==1">
-                <i class="fa fa-ban"></i>&nbsp; Upload
+              <button class="btn btn-sm btn-primary" (click)="file.click()" [disabled]="statusFileUpload==_FILE_UPLOAD_ON_PROGRESS">
+                <i class="fa fa-spinner fa-spin" *ngIf="statusFileUpload==_FILE_UPLOAD_ON_PROGRESS"></i>
+                <i class="fa fa-cloud-upload" *ngIf="!(statusFileUpload==_FILE_UPLOAD_ON_PROGRESS)"></i>&nbsp; Upload
               </button>
             </div>
         </div>

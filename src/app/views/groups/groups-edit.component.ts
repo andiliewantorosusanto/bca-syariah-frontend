@@ -19,6 +19,7 @@ export class GroupsEditComponent implements AfterViewInit {
     'username' : '',
     'nama' : ''
   };
+  btnEditDisabled: boolean = false;
 
   @ViewChild(MatSelectionList) sMenus : MatSelectionList;
 
@@ -49,6 +50,7 @@ export class GroupsEditComponent implements AfterViewInit {
   }
 
   updateGroup() {
+    this.btnEditDisabled = true;
     this.groupService.update(this.group).subscribe(
       res => {
         let groupName = res.data.group_name;
@@ -62,11 +64,13 @@ export class GroupsEditComponent implements AfterViewInit {
             this.router.navigate(['/group']);
           },
           err => {
+            this.btnEditDisabled = false;
             this.errors = err.error.errors;
           }
         )
       },
       err => {
+        this.btnEditDisabled = false;
         this.errors = err.error.errors;
       }
     )
