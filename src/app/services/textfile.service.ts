@@ -30,17 +30,21 @@ export class TextfileService {
     });
   }
 
-  generateAutoDebetNormal(): Observable<any> {
-    return this.http.post(`${baseUrl}/create/autodebetnormal/generate`,{});
+  generateAutoDebetNormal(token: string): Observable<any> {
+    return this.http.post(`${baseUrl}/create/autodebetnormal/generate`,{
+      token : token
+    });
   }
 
-  generateAutoDebetKonsumenBermasalah(): Observable<any> {
-    return this.http.post(`${baseUrl}/create/autodebetkonsumenbermasalah/generate`,{});
+  generateAutoDebetKonsumenBermasalah(token: string): Observable<any> {
+    return this.http.post(`${baseUrl}/create/autodebetkonsumenbermasalah/generate`,{
+      token : token
+    });
   }
 
-  generateAutoDebetFuture(date: string): Observable<any> {
+  generateAutoDebetFuture(token: string): Observable<any> {
     return this.http.post(`${baseUrl}/create/autodebetfuture/generate`, {
-      date : date
+      token : token
     });
   }
 

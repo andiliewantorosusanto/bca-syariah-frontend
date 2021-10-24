@@ -84,9 +84,8 @@
         </div>
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary" [disabled]="btnImportLoading" (click)="importAutoDebet()"><i class="fa fa-spinner fa-spin" *ngIf="btnImportLoading"></i> <i class="fa fa-cloud-download" *ngIf="!btnImportLoading"></i> Import</button>
         <button type="submit" class="btn btn-sm btn-primary" [disabled]="textfileCreateStatus==_TEXTFILE_ON_PROGRESS || btnSearchLoading" (click)="searchTextfile()"><i class="fa fa-spinner fa-spin" *ngIf="btnSearchLoading"></i> <i class="fa fa-search" *ngIf="!btnSearchLoading"></i> Search</button>
-        <button type="reset" class="btn btn-sm btn-primary" [disabled]="data==''||textfileCreateStatus==_TEXTFILE_ON_PROGRESS" (click)="createTextfile()"><i class="fa fa-spinner fa-spin" *ngIf="textfileCreateStatus==_TEXTFILE_ON_PROGRESS"></i><i class="fa fa-file-text" *ngIf="!(textfileCreateStatus==_TEXTFILE_ON_PROGRESS)"></i> Create Textfile</button>
+        <button type="reset" class="btn btn-sm btn-primary" [disabled]="data==''||textfileCreateStatus==_TEXTFILE_ON_PROGRESS" (click)="importAutoDebet()"><i class="fa fa-spinner fa-spin" *ngIf="textfileCreateStatus==_TEXTFILE_ON_PROGRESS"></i><i class="fa fa-file-text" *ngIf="!(textfileCreateStatus==_TEXTFILE_ON_PROGRESS)"></i> Create Textfile</button>
       </div>
     </div>
   </div>
