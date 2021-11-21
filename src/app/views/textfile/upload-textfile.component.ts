@@ -18,6 +18,7 @@ export class UploadTextfileComponent implements AfterViewInit {
 
   data: any[] = [];
   textValue: string = "";
+  textErrorUpload: any[] = [];
   dateValue: Date = new Date();
   searchBy: string = "batch_no";
   sortBy: string = "batch_no";
@@ -51,7 +52,6 @@ export class UploadTextfileComponent implements AfterViewInit {
       console.log("No file selected!");
       return
     }
-
     let file: File = files[0];
     this.file.nativeElement.value = '';
     this.statusFileUpload = this._FILE_UPLOAD_ON_PROGRESS;
@@ -67,7 +67,11 @@ export class UploadTextfileComponent implements AfterViewInit {
         },
         (err) => {
           this.statusFileUpload = this._FILE_UPLOAD_FAILED;
-          console.log("Upload Error:", err);
+          const keys = Object.keys(err.error.errors);
+          this.textErrorUpload = [];
+          keys.forEach((key,index) => {
+            this.textErrorUpload[index] = `${err.error.errors[key]}`;
+          });
         }, () => {
           this.statusFileUpload = this._FILE_UPLOAD_SUCCESS;
           console.log("Upload done");
